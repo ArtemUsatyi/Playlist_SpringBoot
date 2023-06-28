@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Here Only Rock - слушайте и скачивайте музыку бесплатно</title>
+    <link rel="stylesheet" id='reset-css' href="/css/reset.css" type='text/css' media='all'/>
+    <link rel="stylesheet" id='superfish-css' href="/css/superfish.css" type='text/css' media='all'/>
+    <link rel="stylesheet" id='fontawsome-css' href="/css/font-awsome/css/font-awesome.css" type='text/css' media='all'/>
+    <link rel="stylesheet" id='orbit-css-css' href="/css/orbit.css" type='text/css' media='all'/>
+    <link rel="stylesheet" id="style-css" href="/css/style.css" type="text/css" media="all"/>
+    <link rel="stylesheet" id='color-scheme-css' href="/css/color/green.css" type='text/css' media='all'/>
+    <link rel="stylesheet" href="/css/zerogrid.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/responsive.css" type="text/css" media="screen">
+    <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+</head>
+
+<body class="home blog">
+
+<!-- Start Header -->
+<div class="container zerogrid">
+    <div class="col-full">
+        <div class="wrap-col">
+            <div id="header-nav-container">
+
+                <a href="#">
+                    <img src="/images/logo.jpg" id="logo"/>
+                </a>
+
+                <!-- Navigation Menu -->
+
+                <ul class="sf-menu">
+                    <li class="menu-item current-menu-item"><a href="index">Главная</a></li>
+                    <li class="menu-item"><a href="/index/login">Войти</a></li>
+                    <li class="menu-item"><a href="/index/about">Правила</a></li>
+                </ul>
+                <!-- End Navigation Menu -->
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+<div class="spacing-10"></div>
+<!-- End Header -->
+
+<!-- Start Main Container -->
+<div class="container zerogrid">
+
+    <!-- Start Posts Container -->
+    <div class="col-2-3" id="post-container">
+        <div class="wrap-col">
+
+            <!-- Start Post Item -->
+            <div class="post">
+                <div class="post-margin-play">
+                    <h5 class="page-title">Плейлист</h5>
+                </div>
+
+                <div class="post-margin-playlist">
+                    <div class="container">
+                        <!-- Активировать если автор найден в поиске -->
+                        <div th:if="${author}" class="text-playList">
+                            <ul class="text-playList">
+                                <li><a href="/index">Главное меню / </a></li>
+                                <li>Король и Шут</li>
+                            </ul>
+                        </div>
+
+                        <!-- Audio Play List -->
+                        <div class="position_audioPlayer">
+                            <audio src="" controls id="audioPlayer">
+                                <p>Извините ваш браузер не поддерживает Audio формат</p>
+                            </audio>
+
+                            <ul id="playlist">
+                                <li class="current-song"><a href="GetAMoveOn.mp3">GetAMoveOn1</a></li>
+                                <li><a href="music/Необычные.mp3">Необычные1</a></li>
+                                <li><a href="GetAMoveOn.mp3">Get A Move On2</a></li>
+                            </ul>
+                        </div>
+
+                    </div><!-- ./container -->
+                </div>
+
+                <div class="clear"></div>
+            </div>
+            <!-- End Post Item -->
+
+            <!-- Start Pagination -->
+            <div class="spacing-20"></div>
+            <ul class="pagination">
+                <li class='current'><a href=''>1</a></li>
+                <li><a href=''>2</a></li>
+                <li><a href=''>3</a></li>
+                <li><a href=''>4</a></li>
+                <li><a href=''>НАЗАД</a></li>
+                <li><a href=''>СЛЕД</a></li>
+            </ul>
+            <!-- End Pagination -->
+
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- End Posts Container -->
+
+    <!-- Start Sidebar -->
+    <div class="col-1-3">
+        <div class="wrap-col">
+            <div class="widget-container">
+                <form action="" method="get" role="search" id="searchform" class="searchform">
+                    <div>
+                        <label class="screen-reader-text" for="s">Search for:</label>
+                        <input type="text" value="" name="s" id="s" required placeholder="Поиск песни"/>
+                        <input type="submit" id="searchsubmit" value="Поиск"/>
+                    </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="widget-container"><h6 class="widget-title">Главное меню</h6>
+                <ul>
+                    <li class="cat-item cat-item-5"><a href="/index/login"
+                                                       title="View all posts filed under Apps">Войти</a></li>
+                    <li class="cat-item cat-item-3"><a href="/index/about"
+                                                       title="View all posts filed under Illustration">Правила</a></li>
+                    <li class="cat-item cat-item-3"><a href="/adminPanel"
+                                                       title="View all posts filed under Illustration">Редак и Добавить
+                        музыку</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>        <!-- End Sidebar -->
+
+    <div class="clear"></div>
+</div>
+<!-- End Main Container -->
+
+<!-- Start Footer -->
+<div class="spacing-30"></div>
+<div class="container zerogrid">
+    <div id="footer-container" class="col-full">
+        <div class="wrap-col">
+            <!-- Footer Copyright -->
+            <p>Copyrigh &copy; 2023 <a href="/index">HereOnlyRock.ru</a> Музыкальный сервис</p>
+            <!-- End Footer Copyright -->
+
+            <!-- Footer Logo -->
+            <img src="/images/footer-logo.png" id="footer-logo"/>
+            <!-- End Footer Logo -->
+
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<!-- End Footer -->
+
+<script src="/js/audioPlayer.js"></script>
+<script>
+    // loads the audio player
+    audioPlayer();
+</script>
+</body>
+
+</html>
