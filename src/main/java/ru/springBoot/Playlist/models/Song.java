@@ -1,28 +1,36 @@
 package ru.springBoot.Playlist.models;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "Song")
-public class Songs {
+public class Song {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
     @Column(name = "name")
+    @Range(min = 5, max = 200, message = "название песни должны начинаться от 1 до 200 символов")
     private String name;
     @Column(name = "link")
+    @NotEmpty(message = "загрузите музыку")
     private String link;
     @Column(name = "year_song")
+    @Max(value = 2024, message = "год написания песни не должен быть больше 2024 года")
     private int yearSong;
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
-    private Authors author;
+    private Author author;
 
-    public Songs() {
+    public Song() {
     }
 
-    public Songs(String name, String link, int yearSong) {
+    public Song(String name, String link, int yearSong) {
         this.name = name;
         this.link = link;
         this.yearSong = yearSong;
@@ -60,11 +68,11 @@ public class Songs {
         this.yearSong = yearSong;
     }
 
-    public Authors getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(Authors author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 }

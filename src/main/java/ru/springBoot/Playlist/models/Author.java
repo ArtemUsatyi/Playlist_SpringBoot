@@ -1,28 +1,35 @@
 package ru.springBoot.Playlist.models;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import java.util.List;
 
 @Entity
 @Table(name = "Author")
-public class Authors {
+public class Author {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "name")
+    @Range(min = 5, max = 200, message = "название группы должны начинаться от 3 до 200 символов")
     private String name;
     @Column(name = "age")
+    @Max(value = 2014, message = "год создание группы не должен быть больше 2024 года")
     private int age;
     @Column(name = "email")
+    @Email(message = "введенный email не валидный")
     private String email;
     @OneToMany(mappedBy = "author")
-    private List<Songs> songs;
+    private List<Song> songs;
 
-    public Authors() {
+    public Author() {
     }
 
-    public Authors(String name, int age, String email) {
+    public Author(String name, int age, String email) {
         this.name = name;
         this.age = age;
         this.email = email;
@@ -60,11 +67,22 @@ public class Authors {
         this.email = email;
     }
 
-    public List<Songs> getSongs() {
+    public List<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(List<Songs> songs) {
+    public void setSongs(List<Song> songs) {
         this.songs = songs;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", songs=" + songs +
+                '}';
     }
 }
