@@ -1,10 +1,12 @@
 package ru.springBoot.Playlist.models;
 
-import org.hibernate.validator.constraints.Range;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,10 +17,10 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "name")
-    @Range(min = 5, max = 200, message = "название группы должны начинаться от 3 до 200 символов")
+    @Length(min = 2, max = 200 , message = "название группы должно быть от 2 до 200 символов")
     private String name;
     @Column(name = "age")
-    @Max(value = 2014, message = "год создание группы не должен быть больше 2024 года")
+    @Max(value = 2023, message = "год создание группы не должен быть больше 2024 года")
     private int age;
     @Column(name = "email")
     @Email(message = "введенный email не валидный")

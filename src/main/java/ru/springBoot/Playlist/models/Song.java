@@ -1,5 +1,6 @@
 package ru.springBoot.Playlist.models;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class Song {
 
     private int id;
     @Column(name = "name")
-    @Range(min = 5, max = 200, message = "название песни должны начинаться от 1 до 200 символов")
+    @Length(min = 2, max = 200 , message = "название группы должно быть от 2 до 200 символов")
     private String name;
     @Column(name = "link")
     @NotEmpty(message = "загрузите музыку")
@@ -49,7 +50,7 @@ public class Song {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
     public String getLink() {
