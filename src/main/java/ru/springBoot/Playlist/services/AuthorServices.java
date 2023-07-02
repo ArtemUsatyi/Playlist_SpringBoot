@@ -16,10 +16,12 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class AuthorServices {
     private final AuthorRepository authorRepository;
+    private final SongServices songServices;
 
     @Autowired
-    public AuthorServices(AuthorRepository authorRepository) {
+    public AuthorServices(AuthorRepository authorRepository, SongServices songServices) {
         this.authorRepository = authorRepository;
+        this.songServices = songServices;
     }
 
     public List<Author> findAllAuthor(String searchAuthor) {
