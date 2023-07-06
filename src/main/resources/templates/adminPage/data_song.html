@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Данные о авторe</title>
+    <title>Данные песни</title>
     <link rel='stylesheet' id='reset-css' href='/css/reset.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='superfish-css' href='/css/superfish.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='fontawsome-css' href='/css/font-awsome/css/font-awesome.css' type='text/css'
@@ -24,6 +24,7 @@
     <div class="col-full">
         <div class="wrap-col">
             <div id="header-nav-container">
+
                 <a href="#">
                     <img src="/images/logo.jpg" id="logo"/>
                 </a>
@@ -31,8 +32,8 @@
                 <ul class="sf-menu">
                     <li class="menu-item"><a href="/index">Главная</a></li>
                     <li class="menu-item current-menu-item"><a href="/adminPanel">Редак & Добав</a></li>
-                    <li class="menu-item"><a href="/index/login">Войти</a></li>
-                    <li class="menu-item"><a href="/index/about">Правила</a></li>
+                    <li class="menu-item"><a href="/login">Войти</a></li>
+                    <li class="menu-item"><a href="/about">Правила</a></li>
                 </ul>
                 <!-- End Navigation Menu -->
                 <div class="clear"></div>
@@ -56,36 +57,29 @@
             <!-- Start Post Item -->
             <div class="post">
                 <div class="post-margin-play">
-                    <h5 class="page-title">Данные автора</h5>
+                    <h5 class="page-title">Данные песни</h5>
                 </div>
 
                 <div class="post-margin-playlist">
                     <div class="container">
-
-                        <div th:object="${author}">
+                        <div th:object="${song}">
                             <label class="screen-reader-text">Имя автора:</label>
-                            <p th:text="${author.getName()}"/>
+                            <p th:text="${song.getName()}"/>
                             </br>
                             <label class="screen-reader-text">Возраст автора:</label>
                             </br>
-                            <p th:text="${author.getAge()}"/>
+                            <p th:text="${song.getYearSong()}"/>
                             </br>
-                            <label class="screen-reader-text">Введите email автора:</label>
-                            <p th:text="${author.getEmail()}"/>
+                            <label class="screen-reader-text">Ссылка песни:</label>
+                            </br>
+                            <p th:text="${song.getLink()}"/>
+                            </br>
                         </div>
                         <div class="widget-container">
-                            <form th:method="GET" th:action="@{/adminPanel/{id}/editAuthor(id=${author.getId()})}"  class="editAdd">
-                                <input type="submit" id="button" value="Редактировать данные автора"/>
-                            </form>
-                            </br>
-                            </br>
-                            </br>
-                            </br>
-                            <form th:action="@{/adminPanel/{id}/listSongs(id=${author.getId()})}" method="GET" class="editAdd" th:object="${author}">
-                                <input type="submit" id="button" value="Список песен автора"/>
+                            <form th:method="GET" th:action="@{/adminPanel/{id}/editSong(id=${song.getId()})}"  class="editAdd">
+                                <input type="submit" id="button" value="Редактировать данные песни"/>
                             </form>
                         </div>
-
                     </div><!-- ./container -->
                 </div>
 
@@ -103,11 +97,12 @@
         <div class="wrap-col">
             <div class="widget-container"><h6 class="widget-title">Админ панель</h6>
                 <ul>
-                    <li class="cat-item cat-item-5"><a href="/adminPanel">Назад</a></li>
+                    <li class="cat-item cat-item-5">
+                        <a th:href="@{/adminPanel/{id}/listSongs(id=${song.getAuthor().getId()})}">Назад</a>
+                    </li>
                 </ul>
                 <div class="clear"></div>
             </div>
-
             <div class="clear"></div>
         </div>
     </div>        <!-- End Sidebar -->

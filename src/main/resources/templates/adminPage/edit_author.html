@@ -87,21 +87,7 @@
                                      th:errors="*{email}"></div>
                                 </br>
                                 </br>
-                                <input type="submit" id="button" value="Изменить"/>
-                            </form>
-                            </br>
-                            </br>
-                            </br>
-                            </br>
-                            <form action="" method="GET" class="editAdd">
-                                <input type="submit" id="button" value="Список песен автора"/>
-                            </form>
-                            </br>
-                            </br>
-                            </br>
-                            <form th:action="@{/adminPanel/new}" th:method="GET" class="editAdd"
-                                  th:object="${author}">
-                                <input type="submit" id="button" value="Добавить новую песню"/>
+                                <input type="submit" id="button" value="Изменить данные автора"/>
                             </form>
                             </br>
                             </br>
@@ -128,8 +114,9 @@
         <div class="wrap-col">
             <div class="widget-container"><h6 class="widget-title">Админ панель</h6>
                 <ul>
-                    <li class="cat-item cat-item-5"><a href="/adminPanel/listSongs">Список всех песен автора</a></li>
-                    <li class="cat-item cat-item-5"><a href="/adminPanel">Назад</a></li>
+                    <li class="cat-item cat-item-5">
+                        <a th:href="@{/adminPanel/{id}/dataAuthor(id=${author.getId()})}">Назад</a>
+                    </li>
                 </ul>
                 <div class="clear"></div>
             </div>

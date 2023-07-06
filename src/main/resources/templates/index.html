@@ -6,7 +6,8 @@
     <title>Here Only Rock - слушайте и скачивайте музыку бесплатно</title>
     <link rel="stylesheet" id='reset-css' href="/css/reset.css" type='text/css' media='all'/>
     <link rel="stylesheet" id='superfish-css' href="/css/superfish.css" type='text/css' media='all'/>
-    <link rel="stylesheet" id='fontawsome-css' href="/css/font-awsome/css/font-awesome.css" type='text/css' media='all'/>
+    <link rel="stylesheet" id='fontawsome-css' href="/css/font-awsome/css/font-awesome.css" type='text/css'
+          media='all'/>
     <link rel="stylesheet" id='orbit-css-css' href="/css/orbit.css" type='text/css' media='all'/>
     <link rel="stylesheet" id="style-css" href="/css/style.css" type="text/css" media="all"/>
     <link rel="stylesheet" id='color-scheme-css' href="/css/color/green.css" type='text/css' media='all'/>
@@ -28,9 +29,8 @@
                 </a>
 
                 <!-- Navigation Menu -->
-
                 <ul class="sf-menu">
-                    <li class="menu-item current-menu-item"><a href="index">Главная</a></li>
+                    <li class="menu-item current-menu-item"><a href="/index">Главная</a></li>
                     <li class="menu-item"><a href="/index/login">Войти</a></li>
                     <li class="menu-item"><a href="/index/about">Правила</a></li>
                 </ul>
@@ -58,32 +58,26 @@
             <!-- Start Post Item -->
             <div class="post">
                 <div class="post-margin-play">
-                    <h5 class="page-title">Плейлист</h5>
+                    <h5 class="page-title">Поиск исполнителя</h5>
                 </div>
 
                 <div class="post-margin-playlist">
                     <div class="container">
                         <!-- Активировать если автор найден в поиске -->
-                        <div th:if="${author}" class="text-playList">
+                        <div th:if="${search}" class="text-playList">
                             <ul class="text-playList">
-                                <li><a href="/index">Главное меню / </a></li>
-                                <li>Король и Шут</li>
+                                <li>Результат поиска - </li>
+                                <li th:text="${search}"></li>
                             </ul>
                         </div>
-
-                        <!-- Audio Play List -->
-                        <div class="position_audioPlayer">
-                            <audio src="" controls id="audioPlayer">
-                                <p>Извините ваш браузер не поддерживает Audio формат</p>
-                            </audio>
-
-                            <ul id="playlist">
-                                <li class="current-song"><a href="GetAMoveOn.mp3">GetAMoveOn1</a></li>
-                                <li><a href="music/Необычные.mp3">Необычные1</a></li>
-                                <li><a href="GetAMoveOn.mp3">Get A Move On2</a></li>
-                            </ul>
-                        </div>
-
+                        <!-- Список музыкантов -->
+                        <ul id="playlist">
+                            <div th:each="author : ${authors}" class="text-playList">
+                                <li class="current-song">
+                                    <a th:href="@{/index/{id}(id=${author.getId()})}" th:text="${author.getName()}"></a>
+                                </li>
+                            </div>
+                        </ul>
                     </div><!-- ./container -->
                 </div>
 
@@ -112,10 +106,10 @@
     <div class="col-1-3">
         <div class="wrap-col">
             <div class="widget-container">
-                <form action="" method="get" role="search" id="searchform" class="searchform">
+
+                <form action="/index/search" method="get" role="search" id="searchform" class="searchform">
                     <div>
-                        <label class="screen-reader-text" for="s">Search for:</label>
-                        <input type="text" value="" name="s" id="s" required placeholder="Поиск песни"/>
+                        <input type="text" name="searchString" id="s" required placeholder="Поиск песни"/>
                         <input type="submit" id="searchsubmit" value="Поиск"/>
                     </div>
                 </form>
