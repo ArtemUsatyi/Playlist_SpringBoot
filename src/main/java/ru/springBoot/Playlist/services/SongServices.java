@@ -18,6 +18,10 @@ public class SongServices {
     public SongServices(SongRepository songRepository) {
         this.songRepository = songRepository;
     }
+
+    public Song findOneSong(int id){
+        return songRepository.findById(id).orElse(null);
+    }
     @Transactional
     public void save(Song song){
         songRepository.save(song);
