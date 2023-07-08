@@ -56,19 +56,17 @@
             <!-- Start Post Item -->
             <div class="post">
                 <div class="post-margin-play">
-                    <h5 class="page-title">Добавить нового автора и песню</h5>
+                    <h5 class="page-title">Добавить нового исполнителя</h5>
                 </div>
-
 
                 <div class="post-margin-playlist">
                     <div class="container">
-
                         <div class="widget-container">
                             <form th:action="@{/adminPanel}" th:method="POST" class="editAdd" th:object="${author}">
                                 <label class="screen-reader-text">Введите имя автора:</label>
                                 </br>
                                 <input type="text" th:field="*{name}" required placeholder="Введите нового автора"
-                                        id="edit" />
+                                       id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('name')}"
                                      th:errors="*{name}"></div>
                                 </br>

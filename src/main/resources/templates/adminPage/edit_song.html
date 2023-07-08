@@ -78,8 +78,6 @@
                                 </br>
                                 <input type="text" th:field="*{link}" required placeholder="Введите нового автора"
                                        id="edit"/>
-                                <input type="file" id="button" required accept="audio/mp3"/>
-                                </br>
                                 </br>
                                 </br>
                                 <label class="screen-reader-text">Изенить год написание песни:</label>
@@ -89,12 +87,6 @@
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('yearSong')}"
                                      th:errors="*{yearSong}"></div>
                                 <input type="submit" id="button" value="Изменить данные песни"/>
-                            </form>
-                            </br>
-                            </br>
-                            </br>
-                            <form action="" method="get" class="editAdd">
-                                <input type="submit" id="button" value="Удалить песню"/>
                             </form>
                         </div>
 

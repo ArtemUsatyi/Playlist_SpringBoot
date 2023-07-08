@@ -64,26 +64,32 @@
                     <h5 class="page-title">Список песен автора</h5>
                 </div>
 
-
                 <div class="post-margin-playlist">
                     <div class="container">
 
-                        <!-- Будет всегда активировано, так как изначально мы нашли автора -->
+                        <!-- Будет активировано, так как изначально мы нашли автора -->
                         <div th:if="${author}" class="text-playList">
                             <ul class="text-playList">
-                                <li><a href="author_edit.html">Редактирование автора / </a></li>
-                                <li>Король и Шут</li>
+                                <li><a href="edit_author.html">Список песен автора / </a></li>
+                                <li th:text="${author.getName()}"></li>
                             </ul>
                         </div>
 
                         <!-- Вывести все песни у автора -->
-                        <div class="text-playList">
-                            <ul id="playlist">
-                                <li><a href="/adminPanel/songEdit">Камнем по голове </a></li>
-                                <li><a href="/adminPanel/songEdit">Гробовщие </a></li>
-                            </ul>
-                        </div>
+                        <ul id="playlist">
+                            <div th:each="song : ${songs}" class="text-playList">
+                                <li>
+                                    <a th:href="@{/adminPanel/{id}/dataSong(id=${song.getId()})}"
+                                       th:text="${song.getName()}"></a>
+                                </li>
+                            </div>
+                        </ul>
 
+                        <div class="widget-container">
+                            <form th:action="@{/adminPanel/{id}/newSong(id=${author.getId()})}" class="editAdd">
+                                <input type="submit" id="button" value="Добавить новую песню"/>
+                            </form>
+                        </div>
                     </div><!-- ./container -->
                 </div>
 
@@ -101,7 +107,8 @@
         <div class="wrap-col">
             <div class="widget-container"><h6 class="widget-title">Админ панель</h6>
                 <ul>
-                    <li class="cat-item cat-item-5"><a href="/adminPanel/authorEdit">Назад</a></li>
+                    <li class="cat-item cat-item-5">
+                        <a th:href="@{/adminPanel/{id}/dataAuthor(id=${author.getId()})}">Назад</a></li>
                 </ul>
                 <div class="clear"></div>
             </div>

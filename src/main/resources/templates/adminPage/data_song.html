@@ -79,6 +79,12 @@
                             <form th:method="GET" th:action="@{/adminPanel/{id}/editSong(id=${song.getId()})}"  class="editAdd">
                                 <input type="submit" id="button" value="Редактировать данные песни"/>
                             </form>
+                            </br>
+                            </br>
+                            </br>
+                            <form th:action="@{/adminPanel/{id}/deleteSong(id=${song.getId()})}" th:method="DELETE" class="editAdd">
+                                <input type="submit" id="button" value="Удалить песню"/>
+                            </form>
                         </div>
                     </div><!-- ./container -->
                 </div>

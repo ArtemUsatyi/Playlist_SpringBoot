@@ -92,7 +92,7 @@
                             </br>
                             </br>
                             </br>
-                            <form action="" method="DELETE" class="editAdd">
+                            <form th:action="@{/adminPanel/{id}/deleteAuthor(id=${author.getId()})}" th:method="DELETE" class="editAdd">
                                 <input type="submit" id="button" value="Удалить автора и песни"/>
                             </form>
                         </div>
