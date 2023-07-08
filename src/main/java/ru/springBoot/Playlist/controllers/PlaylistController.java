@@ -41,9 +41,7 @@ public class PlaylistController {
     @GetMapping("/search")
     public String searchAuthor(@RequestParam("searchString") String searchAuthor, Model model){
         model.addAttribute("search", searchAuthor);
-        model.addAttribute("authors", authorServices.findAllAuthor(searchAuthor));
-        List<Author> authorList = authorServices.findAllAuthor(searchAuthor);
-
+        model.addAttribute("authors", authorServices.findAllAuthor(searchAuthor.toUpperCase()));
         return "index";
     }
 
