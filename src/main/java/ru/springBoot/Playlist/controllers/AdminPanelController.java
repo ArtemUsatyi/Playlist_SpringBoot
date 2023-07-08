@@ -11,7 +11,6 @@ import ru.springBoot.Playlist.services.AuthorServices;
 import ru.springBoot.Playlist.services.SongServices;
 
 import javax.validation.Valid;
-import java.sql.SQLOutput;
 
 @Component
 @RequestMapping("/adminPanel")
@@ -70,6 +69,12 @@ public class AdminPanelController {
         return "redirect:/adminPanel/{id}/dataAuthor";
     }
 
+    @DeleteMapping("{id}/deleteAuthor")
+    public String deleteAuthor(@PathVariable("id") int id) {
+        authorServices.delete(id);
+        return "redirect:/adminPanel";
+    }
+
     @GetMapping("{id}/listSongs")
     public String listSongs(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorServices.findOneAuthor(id));
@@ -82,19 +87,17 @@ public class AdminPanelController {
         model.addAttribute("song", songServices.findOneSong(id));
         return "/adminPage/data_song";
     }
-    private Song song;
+
     @GetMapping("{id}/editSong")
     public String editSong(@PathVariable("id") int id, Model model) {
         model.addAttribute("song", songServices.findOneSong(id));
         return "/adminPage/edit_song";
     }
+
     @PatchMapping("{id}/patchSong")
     public String updateAuthor(@ModelAttribute("song") @Valid Song song, BindingResult bindingResult,
                                @PathVariable("id") int id) {
-//        System.out.println(song.getId());
-//        song = songServices.findOneSong(id);
-//        System.out.println(song.getId());
-//        System.out.println(song.getAuthor().getId());
+        song.setAuthor(songServices.findOneSong(id).getAuthor());
         if (bindingResult.hasErrors()) return "/adminPage/edit_song";
         songServices.update(id, song);
         return "redirect:/adminPanel/{id}/dataSong";
@@ -102,16 +105,28 @@ public class AdminPanelController {
 
     @GetMapping("{id}/newSong")
     public String newSong(@PathVariable("id") int id, @ModelAttribute("song") Song song, Model model) {
-        model.addAttribute("author", authorServices.findOneAuthor(id));
+        song.setAuthor(authorServices.findOneAuthor(id));
+        model.addAttribute("song", song);
         return "/adminPage/new_song";
     }
-    // исправить POST SONG будем передавать ID а это и будет Автор и при вызове song.getAuthor.setId(id);
-    @PostMapping("newSong")
+
+    @PostMapping("{id}/newSong")
     public String createSong(@ModelAttribute("song") @Valid Song song, BindingResult bindingResult,
-                             @ModelAttribute("author") Author author) {
+                             @PathVariable("id") int id, Model model) {
+        song.setAuthor(authorServices.findOneAuthor(id));
         if (bindingResult.hasErrors()) return "/adminPage/new_song";
-        song.getAuthor().setId(author.getId());
         songServices.save(song);
-        return "redirect:/adminPage/list_author_songs";
+        model.addAttribute("author", authorServices.findOneAuthor(id));
+        model.addAttribute("songs", authorServices.getSongsByAuthorId(id));
+        return "/adminPage/list_author_songs";
+    }
+
+    @DeleteMapping("{id}/deleteSong")
+    public String deleteSong(@PathVariable("id") int id, Model model) {
+        Author author = songServices.findOneSong(id).getAuthor();
+        songServices.delete(id);
+        model.addAttribute("author", author);
+        model.addAttribute("songs", author.getSongs());
+        return "/adminPage/list_author_songs";
     }
 }
