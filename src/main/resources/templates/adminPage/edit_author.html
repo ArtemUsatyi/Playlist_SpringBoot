@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Редактирование автора</title>
+    <title>Редактирование группы</title>
     <link rel='stylesheet' id='reset-css' href='/css/reset.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='superfish-css' href='/css/superfish.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='fontawsome-css' href='/css/font-awsome/css/font-awesome.css' type='text/css'
@@ -56,7 +56,7 @@
             <!-- Start Post Item -->
             <div class="post">
                 <div class="post-margin-play">
-                    <h5 class="page-title">Редактирование автора</h5>
+                    <h5 class="page-title">Редактирование группы</h5>
                 </div>
 
                 <div class="post-margin-playlist">
@@ -64,36 +64,36 @@
                         <div class="widget-container">
                             <form th:method="PATCH" th:action="@{/adminPanel/{id}/patchAuthor(id=${author.getId()})}"
                                   class="editAdd" th:object="${author}">
-                                <label class="screen-reader-text">Введите имя автора:</label>
+                                <label class="screen-reader-text">Изменить имя группы:</label>
                                 </br>
-                                <input type="text" th:field="*{name}" required placeholder="Введите нового автора"
+                                <input type="text" th:field="*{name}" required placeholder="Введите имя автора"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('name')}"
                                      th:errors="*{name}"></div>
                                 </br>
                                 </br>
-                                <label class="screen-reader-text">Введите возраст автора:</label>
+                                <label class="screen-reader-text">Изменить год создания группы:</label>
                                 </br>
-                                <input type="text" th:field="*{age}" required placeholder="Введите возраст автора"
+                                <input type="text" th:field="*{age}" required placeholder="Введите год группы"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('age')}"
                                      th:errors="*{age}"></div>
                                 </br>
                                 </br>
-                                <label class="screen-reader-text">Введите email автора:</label>
-                                <input type="text" th:field="*{email}" required placeholder="Введите новый email автора"
+                                <label class="screen-reader-text">Изменить email группы:</label>
+                                <input type="text" th:field="*{email}" required placeholder="Введите email автора"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('email')}"
                                      th:errors="*{email}"></div>
                                 </br>
                                 </br>
-                                <input type="submit" id="button" value="Изменить данные автора"/>
+                                <input type="submit" id="button" value="Изменить данные группы"/>
                             </form>
                             </br>
                             </br>
                             </br>
                             <form th:action="@{/adminPanel/{id}/deleteAuthor(id=${author.getId()})}" th:method="DELETE" class="editAdd">
-                                <input type="submit" id="button" value="Удалить автора и песни"/>
+                                <input type="submit" id="button" value="Удалить группу и песни"/>
                             </form>
                         </div>
 

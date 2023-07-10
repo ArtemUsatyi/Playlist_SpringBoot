@@ -79,11 +79,9 @@
                                 <p>Извините ваш браузер не поддерживает Audio формат</p>
                             </audio>
                             <ul id="playlist">
-                                <div th:each="song : ${songs}">
-                                    <li>
-                                        <a href="/music/ACDC_-_Thunderstruck.mp3">AC/DC - Thunderstruck</a>
-                                    </li>
-                                </div>
+                                <li th:each="song : ${songs}">
+                                    <a th:href="@{'/uploadMusic/' + ${song.getLink()}}" th:text="${song.getName()}"></a>
+                                </li>
                             </ul>
                         </div>
                     </div><!-- ./container -->

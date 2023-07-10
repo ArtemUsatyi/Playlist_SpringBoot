@@ -65,24 +65,32 @@
 
                         <div class="widget-container">
                             <form th:method="PATCH" th:action="@{/adminPanel/{id}/patchSong(id=${song.getId()})}"
-                                  class="editAdd" th:object="${song}">
-                                <label class="screen-reader-text">Введите имя автора:</label>
+                                  class="editAdd" th:object="${song}" enctype="multipart/form-data">
+                                <label class="screen-reader-text">Изменить название песни:</label>
                                 </br>
-                                <input type="text" th:field="*{name}" required placeholder="Введите нового автора"
+                                <input type="text" th:field="*{name}" required placeholder="Введите название группы"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('name')}"
                                      th:errors="*{name}"></div>
                                 </br>
                                 </br>
-                                <label class="screen-reader-text">Изменить файл с песней в формате MP3:</label>
+                                <label class="screen-reader-text">Изменить название ссылки:</label>
                                 </br>
-                                <input type="text" th:field="*{link}" required placeholder="Введите нового автора"
+                                <input type="text" th:field="*{link}" required placeholder="Введите ссылку"
                                        id="edit"/>
+                                <div style="color: firebrick" th:if="${#fields.hasErrors('link')}"
+                                     th:errors="*{link}"></div>
                                 </br>
                                 </br>
-                                <label class="screen-reader-text">Изенить год написание песни:</label>
+                                <label class="screen-reader-text">Изменить файл с песней в формате MP3, макс. размер до 30Мб:</label>
                                 </br>
-                                <input type="text" th:field="*{yearSong}" required placeholder="Введите возраст автора"
+                                <input type="file" name="file" accept=".mp3" id="edit" value="Музыка"/>
+                                <div style="color: firebrick" th:if="${file}" th:text="${file}"></div>
+                                </br>
+                                </br>
+                                <label class="screen-reader-text">Изменить год написание песни:</label>
+                                </br>
+                                <input type="text" th:field="*{yearSong}" required placeholder="Введите год написания песни"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('yearSong')}"
                                      th:errors="*{yearSong}"></div>

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Данные о авторe</title>
+    <title>Данные о группе</title>
     <link rel='stylesheet' id='reset-css' href='/css/reset.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='superfish-css' href='/css/superfish.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='fontawsome-css' href='/css/font-awsome/css/font-awesome.css' type='text/css'
@@ -56,33 +56,33 @@
             <!-- Start Post Item -->
             <div class="post">
                 <div class="post-margin-play">
-                    <h5 class="page-title">Данные автора</h5>
+                    <h5 class="page-title">Данные о группе</h5>
                 </div>
 
                 <div class="post-margin-playlist">
                     <div class="container">
 
                         <div th:object="${author}">
-                            <label class="screen-reader-text">Имя автора:</label>
+                            <label class="screen-reader-text">Название группы:</label>
                             <p th:text="${author.getName()}"/>
                             </br>
-                            <label class="screen-reader-text">Возраст автора:</label>
+                            <label class="screen-reader-text">Год создания группы:</label>
                             </br>
                             <p th:text="${author.getAge()}"/>
                             </br>
-                            <label class="screen-reader-text">Введите email автора:</label>
+                            <label class="screen-reader-text">Email группы:</label>
                             <p th:text="${author.getEmail()}"/>
                         </div>
                         <div class="widget-container">
                             <form th:method="GET" th:action="@{/adminPanel/{id}/editAuthor(id=${author.getId()})}"  class="editAdd">
-                                <input type="submit" id="button" value="Редактировать данные автора"/>
+                                <input type="submit" id="button" value="Редактировать данные группы"/>
                             </form>
                             </br>
                             </br>
                             </br>
                             </br>
                             <form th:action="@{/adminPanel/{id}/listSongs(id=${author.getId()})}" method="GET" class="editAdd" th:object="${author}">
-                                <input type="submit" id="button" value="Список песен автора"/>
+                                <input type="submit" id="button" value="Список песен группы"/>
                             </form>
                         </div>
 

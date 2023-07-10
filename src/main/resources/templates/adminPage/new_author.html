@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Добавление новой песни и автора</title>
+    <title>Добавление новой группы</title>
     <link rel='stylesheet' id='reset-css' href='/css/reset.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='superfish-css' href='/css/superfish.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='fontawsome-css' href='/css/font-awsome/css/font-awesome.css' type='text/css'
@@ -56,37 +56,37 @@
             <!-- Start Post Item -->
             <div class="post">
                 <div class="post-margin-play">
-                    <h5 class="page-title">Добавить нового исполнителя</h5>
+                    <h5 class="page-title">Добавить новую группу</h5>
                 </div>
 
                 <div class="post-margin-playlist">
                     <div class="container">
                         <div class="widget-container">
                             <form th:action="@{/adminPanel}" th:method="POST" class="editAdd" th:object="${author}">
-                                <label class="screen-reader-text">Введите имя автора:</label>
+                                <label class="screen-reader-text">Введите название автора:</label>
                                 </br>
-                                <input type="text" th:field="*{name}" required placeholder="Введите нового автора"
+                                <input type="text" th:field="*{name}" required placeholder="Введите название новой группы"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('name')}"
                                      th:errors="*{name}"></div>
                                 </br>
                                 </br>
-                                <label class="screen-reader-text">Введите возраст автора:</label>
+                                <label class="screen-reader-text">Введите год основания группы:</label>
                                 </br>
-                                <input type="text" th:field="*{age}" required placeholder="Введите возраст автора"
+                                <input type="text" th:field="*{age}" required placeholder="Введите год основания группы"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('age')}"
                                      th:errors="*{age}"></div>
                                 </br>
                                 </br>
-                                <label class="screen-reader-text">Введите email автора:</label>
-                                <input type="text" th:field="*{email}" required placeholder="Введите новый email автора"
+                                <label class="screen-reader-text">Введите email группы:</label>
+                                <input type="text" th:field="*{email}" required placeholder="Введите новый email группы"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('email')}"
                                      th:errors="*{email}"></div>
                                 </br>
                                 </br>
-                                <input type="submit" id="button" value="Добавить"/>
+                                <input type="submit" id="button" value="Сохранить группу"/>
                             </form>
                         </div>
                     </div><!-- ./container -->
