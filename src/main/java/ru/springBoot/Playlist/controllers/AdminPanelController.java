@@ -1,16 +1,24 @@
 package ru.springBoot.Playlist.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.springBoot.Playlist.models.Author;
 import ru.springBoot.Playlist.models.Song;
 import ru.springBoot.Playlist.services.AuthorServices;
 import ru.springBoot.Playlist.services.SongServices;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @Component
 @RequestMapping("/adminPanel")
@@ -18,6 +26,11 @@ public class AdminPanelController {
 
     private final AuthorServices authorServices;
     private final SongServices songServices;
+
+    @Value("${upload.path}")
+    private String uploadPath;
+
+    private final Path path = Paths.get("C:/Users/Artemo/Documents/Maven/Library/Playlist/uploadMusic");
 
     @Autowired
     public AdminPanelController(AuthorServices authorServices, SongServices songServices) {
@@ -71,6 +84,13 @@ public class AdminPanelController {
 
     @DeleteMapping("{id}/deleteAuthor")
     public String deleteAuthor(@PathVariable("id") int id) {
+        for (Song song : authorServices.getSongsByAuthorId(id)) {
+            try {
+                Files.delete(path.resolve(song.getLink()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         authorServices.delete(id);
         return "redirect:/adminPanel";
     }
@@ -96,9 +116,30 @@ public class AdminPanelController {
 
     @PatchMapping("{id}/patchSong")
     public String updateAuthor(@ModelAttribute("song") @Valid Song song, BindingResult bindingResult,
-                               @PathVariable("id") int id) {
+                               @PathVariable("id") int id, Model model, @RequestParam("file") MultipartFile file) {
         song.setAuthor(songServices.findOneSong(id).getAuthor());
+        System.out.println(song.getName());
+        System.out.println(songServices.findOneSong(id).getLink());
         if (bindingResult.hasErrors()) return "/adminPage/edit_song";
+
+        if (file.getSize() > 30000000) {
+            model.addAttribute("file", "Максимальный размер файла до 30Мб");
+            return "/adminPage/new_song";
+        }
+        if (!file.isEmpty()) {
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdir();
+            UUID uuid = UUID.randomUUID();
+            song.setLink(uuid + "_" + file.getOriginalFilename());
+            try {
+                file.transferTo(new File(uploadPath + "/" + song.getLink()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (!song.getLink().equals(songServices.findOneSong(id).getLink())) {
+            File renameFile = new File(uploadPath + "/" + songServices.findOneSong(id).getLink());
+            renameFile.renameTo(new File(uploadPath + "/" + song.getLink()));
+        }
         songServices.update(id, song);
         return "redirect:/adminPanel/{id}/dataSong";
     }
@@ -112,9 +153,24 @@ public class AdminPanelController {
 
     @PostMapping("{id}/newSong")
     public String createSong(@ModelAttribute("song") @Valid Song song, BindingResult bindingResult,
-                             @PathVariable("id") int id, Model model) {
+                             @PathVariable("id") int id, Model model, @RequestParam("file") MultipartFile file) {
         song.setAuthor(authorServices.findOneAuthor(id));
         if (bindingResult.hasErrors()) return "/adminPage/new_song";
+        if (file.getSize() > 30000000) {
+            model.addAttribute("file", "Максимальный размер файла до 30Мб");
+            return "/adminPage/new_song";
+        }
+        if (!file.isEmpty()) {
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdir();
+            UUID uuid = UUID.randomUUID();
+            song.setLink(uuid + "_" + file.getOriginalFilename());
+            try {
+                file.transferTo(new File(uploadPath + "/" + song.getLink()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         songServices.save(song);
         model.addAttribute("author", authorServices.findOneAuthor(id));
         model.addAttribute("songs", authorServices.getSongsByAuthorId(id));
@@ -124,6 +180,11 @@ public class AdminPanelController {
     @DeleteMapping("{id}/deleteSong")
     public String deleteSong(@PathVariable("id") int id, Model model) {
         Author author = songServices.findOneSong(id).getAuthor();
+        try {
+            Files.delete(path.resolve(songServices.findOneSong(id).getLink()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         songServices.delete(id);
         model.addAttribute("author", author);
         model.addAttribute("songs", author.getSongs());
