@@ -9,8 +9,8 @@ import java.util.Collection;
 public class UsernameDetails implements UserDetails {
     private final Username username;
 
-    public UsernameDetails(Username securityUser) {
-        this.username = securityUser;
+    public UsernameDetails(Username username) {
+        this.username = username;
     }
 
     @Override

@@ -12,17 +12,17 @@ import ru.springBoot.Playlist.security.UsernameDetails;
 import java.util.Optional;
 
 @Service
-public class SecurityDetailsServices implements UserDetailsService {
-    private final UsernameRepository securityUserRepository;
+public class UsernameDetailsServices implements UserDetailsService {
+    private final UsernameRepository usernameRepository;
 
     @Autowired
-    public SecurityDetailsServices(UsernameRepository securityUserRepository) {
-        this.securityUserRepository = securityUserRepository;
+    public UsernameDetailsServices(UsernameRepository usernameRepository) {
+        this.usernameRepository = usernameRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Username> user = securityUserRepository.findByName(username);
+        Optional<Username> user = usernameRepository.findByName(username);
 
         if (user.isEmpty()) throw new UsernameNotFoundException("User not found");
 
