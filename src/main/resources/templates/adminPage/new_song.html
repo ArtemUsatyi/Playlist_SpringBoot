@@ -70,26 +70,30 @@
                     <div class="container">
 
                         <div class="widget-container">
-                            <form th:action="@{/adminPanel/{id}/newSong(id=${song.getAuthor().getId()})}" th:method="POST" th:object="${song}" class="editAdd">
-                                <label class="screen-reader-text">Введите имя автора:</label>
+                            <form th:action="@{/adminPanel/{id}/newSong(id=${song.getAuthor().getId()})}"
+                                  th:method="POST" th:object="${song}" class="editAdd" enctype="multipart/form-data">
+                                <label class="screen-reader-text">Название новой песни:</label>
                                 </br>
-                                <input type="text" th:field="*{name}" required placeholder="Введите нового автора"
+                                <input type="text" th:field="*{name}" required
+                                       placeholder="Введите нового название песни, макс. размер 30Мб"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('name')}"
                                      th:errors="*{name}"></div>
                                 </br>
                                 </br>
-                                <label class="screen-reader-text">Изменить файл с песней в формате MP3:</label>
+                                <label class="screen-reader-text">Название ссылки песни:</label>
                                 </br>
-                                <input type="text" th:field="*{link}" required placeholder="Введите нового автора"
+                                <input type="file" name="file" accept=".mp3" required placeholder="Ввебери песню"
                                        id="edit"/>
+                                <div style="color: firebrick" th:if="${file}" th:text="${file}"></div>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('link')}"
                                      th:errors="*{link}"></div>
                                 </br>
                                 </br>
-                                <label class="screen-reader-text">Изенить год написание песни:</label>
+                                <label class="screen-reader-text">Год написания песни:</label>
                                 </br>
-                                <input type="text" th:field="*{yearSong}" required placeholder="Введите возраст автора"
+                                <input type="text" th:field="*{yearSong}" required
+                                       placeholder="Введите год написания песни"
                                        id="edit"/>
                                 <div style="color: firebrick" th:if="${#fields.hasErrors('yearSong')}"
                                      th:errors="*{yearSong}"></div>
@@ -115,7 +119,8 @@
             <div class="widget-container"><h6 class="widget-title">Админ панель</h6>
                 <ul>
                     <li class="cat-item cat-item-5">
-
+                        <a th:href="@{/adminPanel/{id}/listSongs(id=${song.getId()})}">Назад</a>
+                    </li>
                 </ul>
                 <div class="clear"></div>
             </div>

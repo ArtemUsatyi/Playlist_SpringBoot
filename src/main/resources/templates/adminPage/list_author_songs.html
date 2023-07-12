@@ -70,7 +70,9 @@
                         <!-- Будет активировано, так как изначально мы нашли автора -->
                         <div th:if="${author}" class="text-playList">
                             <ul class="text-playList">
-                                <li><a href="edit_author.html">Список песен группы / </a></li>
+                                <li>
+                                    <a th:href="@{/adminPanel/{id}/dataAuthor(id=${author.getId()})}">Вернуть к группе/</a></li>
+                                </li>
                                 <li th:text="${author.getName()}"></li>
                             </ul>
                         </div>
