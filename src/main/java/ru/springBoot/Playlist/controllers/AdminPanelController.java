@@ -58,6 +58,7 @@ public class AdminPanelController {
     @PostMapping
     public String createAuthor(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "/adminPage/new_author";
+        author.setName(author.getName().toUpperCase());
         authorServices.save(author);
         return "redirect:/adminPanel";
     }
@@ -78,6 +79,7 @@ public class AdminPanelController {
     public String updateAuthor(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult,
                                @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) return "/adminPage/edit_author";
+        author.setName(author.getName().toUpperCase());
         authorServices.update(id, author);
         return "redirect:/adminPanel/{id}/dataAuthor";
     }
@@ -103,7 +105,7 @@ public class AdminPanelController {
     }
 
     @GetMapping("{id}/dataSong")
-    public String dataS(@PathVariable("id") int id, Model model) {
+    public String dataSong(@PathVariable("id") int id, Model model) {
         model.addAttribute("song", songServices.findOneSong(id));
         return "/adminPage/data_song";
     }
@@ -118,20 +120,14 @@ public class AdminPanelController {
     public String updateAuthor(@ModelAttribute("song") @Valid Song song, BindingResult bindingResult,
                                @PathVariable("id") int id, Model model, @RequestParam("file") MultipartFile file) {
         song.setAuthor(songServices.findOneSong(id).getAuthor());
-        System.out.println(song.getName());
-        System.out.println(songServices.findOneSong(id).getLink());
         if (bindingResult.hasErrors()) return "/adminPage/edit_song";
-
         if (file.getSize() > 30000000) {
             model.addAttribute("file", "Максимальный размер файла до 30Мб");
             return "/adminPage/new_song";
         }
         if (!file.isEmpty()) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdir();
-            UUID uuid = UUID.randomUUID();
-            song.setLink(uuid + "_" + file.getOriginalFilename());
             try {
+                Files.delete(path.resolve(songServices.findOneSong(id).getLink()));
                 file.transferTo(new File(uploadPath + "/" + song.getLink()));
             } catch (IOException e) {
                 throw new RuntimeException(e);

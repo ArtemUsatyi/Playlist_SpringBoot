@@ -25,10 +25,10 @@ public class AuthorServices {
     }
 
     public List<Author> findAllAuthor(String searchAuthor) {
-        return authorRepository.findByNameStartingWith(searchAuthor);
+        return authorRepository.findByNameStartingWith(searchAuthor.toUpperCase());
     }
 
-    public Author findOneAuthor(int id){
+    public Author findOneAuthor(int id) {
         Optional<Author> author = authorRepository.findById(id);
         return author.orElse(null);
     }
