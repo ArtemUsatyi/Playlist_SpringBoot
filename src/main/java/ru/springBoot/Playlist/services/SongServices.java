@@ -6,9 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.springBoot.Playlist.models.Song;
 import ru.springBoot.Playlist.repositories.SongRepository;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 @Transactional(readOnly = true)
 public class SongServices {
