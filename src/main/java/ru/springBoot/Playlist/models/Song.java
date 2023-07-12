@@ -1,7 +1,6 @@
 package ru.springBoot.Playlist.models;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -13,13 +12,11 @@ public class Song {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
     @Column(name = "name")
-    @Length(min = 2, max = 200 , message = "название группы должно быть от 2 до 200 символов")
+    @Length(min = 2, max = 200, message = "название группы должно быть от 2 до 200 символов")
     private String name;
     @Column(name = "link")
-    @NotEmpty(message = "загрузите музыку")
     private String link;
     @Column(name = "year_song")
     @Max(value = 2024, message = "год написания песни не должен быть больше 2024 года")
@@ -50,7 +47,7 @@ public class Song {
     }
 
     public void setName(String name) {
-        this.name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
     public String getLink() {
