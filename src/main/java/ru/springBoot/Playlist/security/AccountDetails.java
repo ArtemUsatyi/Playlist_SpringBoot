@@ -2,15 +2,15 @@ package ru.springBoot.Playlist.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.springBoot.Playlist.models.Username;
+import ru.springBoot.Playlist.models.Account;
 
 import java.util.Collection;
 
-public class UsernameDetails implements UserDetails {
-    private final Username username;
+public class AccountDetails implements UserDetails {
+    private final Account account;
 
-    public UsernameDetails(Username username) {
-        this.username = username;
+    public AccountDetails(Account account) {
+        this.account = account;
     }
 
     @Override
@@ -20,12 +20,12 @@ public class UsernameDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.username.getPassword();
+        return this.account.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.username.getName();
+        return this.account.getUsername();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class UsernameDetails implements UserDetails {
     }
 
     // Нужно чтобы получать данных аутентифицированного пользователя
-    public Username getUser() {
-        return this.username;
+    public Account getUser() {
+        return this.account;
     }
 }

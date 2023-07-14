@@ -5,27 +5,27 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "Username")
-public class Username {
+@Table(name = "Account")
+public class Account {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "username")
     @NotEmpty(message = "Имя не должно быть пустым")
-    @Size(min = 2, max = 100, message = "Логин должен состоять от 2 до 100 символов")
-    private String name;
+    @Size(min = 2, max = 100, message = "Логин может состоять от 2 букв")
+    private String username;
 
     @Column(name = "password")
-    @Size(min = 3, max = 100, message = "Пароль должен состоять от 3 до 100 символов")
+    @Size(min = 3, max = 100, message = "Пароль может состоять от 3 букв")
     private String password;
 
-    public Username() {
+    public Account() {
     }
 
-    public Username(String username, String password) {
-        this.name = username;
+    public Account(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -37,12 +37,12 @@ public class Username {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String username) {
-        this.name = username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
