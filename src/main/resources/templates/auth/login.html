@@ -4,11 +4,12 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Зарегистрируйтесь на сайт</title>
+    <title>Войдите на сайт и получите дополнительные возможности</title>
 
     <link rel='stylesheet' id='reset-css' href='/css/reset.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='superfish-css' href='/css/superfish.css' type='text/css' media='all'/>
-    <link rel='stylesheet' id='fontawsome-css' href='/css/font-awsome/css/font-awesome.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='fontawsome-css' href='/css/font-awsome/css/font-awesome.css' type='text/css'
+          media='all'/>
     <link rel='stylesheet' id='orbit-css-css' href='/css/orbit.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='style-css' href='/css/style.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='color-scheme-css' href='/css/color/green.css' type='text/css' media='all'/>
@@ -35,7 +36,6 @@
                 <a href="#">
                     <img src="/images/logo.jpg" id="logo"/>
                 </a>
-
                 <!-- Navigation Menu -->
                 <ul class="sf-menu">
                     <li class="menu-item"><a href="/index">Главная</a></li>
@@ -43,9 +43,7 @@
                     <li class="menu-item"><a href="/index/about">Правила</a></li>
                 </ul>
                 <!-- End Navigation Menu -->
-
                 <div class="clear"></div>
-
             </div>
         </div>
     </div>
@@ -54,30 +52,30 @@
 <div class="spacing-10"></div>
 <!-- End Header -->
 
-
 <!-- Start Main Container -->
 <div class="container zerogrid">
 
     <div class="col-full page-conainer">
         <div class="wrap-col">
             <div class="post-margin">
-                <h5 class="page-title">Регистрация пользователя</h5>
+                <h5 class="page-title">Введите логин и пароль</h5>
 
                 <!-- Start Entry -->
                 <div class="login-page">
                     <div class="form">
-                        <form action="" method="get" class="login-form">
-                            <input type="text" required placeholder="Введите новый логин"/>
-                            <input type="password" required placeholder="Введите новый пароль"/>
-                            <button class="form_auth_button" type="submit" name="form_auth_submit">Зарегистрировать
-                            </button>
+                        <form name="f" action="/process_login" method="POST" class="login-form">
+                            <div th:if="${param.error}" style="color: #4CAF50">
+                                Неправильное имя или пароль
+                            </div>
+                            <input type="text" name="username" required placeholder="Логин"/>
+                            <input type="password" name="password" required placeholder="Пароль"/>
+                            <button class="form_auth_button" type="submit" name="form_auth_submit">войти</button>
+                            <p class="message">Не зарегистрированы? <a href="/auth/registration">Создать аккаунт</a></p>
                         </form>
                     </div>
                 </div>
-
                 <div class="symple-clear-floats"></div>
                 <!-- End Entry -->
-
             </div>
         </div>
     </div>
@@ -86,14 +84,13 @@
 </div>
 <!-- End Main Container -->
 
-
 <!-- Start Footer -->
 <div class="spacing-30"></div>
 <div class="container zerogrid">
     <div id="footer-container" class="col-full">
         <div class="wrap-col">
             <!-- Footer Copyright -->
-            <p>Copyrigh &copy; 2023 <a href="/index">HereOnlyRock.ru</a> Музыкальный сервиc</p>
+            <p>Copyrigh &copy; 2023 <a href="/index">HereOnlyRock.ru</a> Музыкальный сервис</p>
             <!-- End Footer Copyright -->
 
             <!-- Footer Logo -->
