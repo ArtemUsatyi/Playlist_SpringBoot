@@ -8,19 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.springBoot.Playlist.services.AuthorServices;
-import ru.springBoot.Playlist.services.SongServices;
 
 @Component
 @RequestMapping("/index")
 public class PlaylistController {
 
     private final AuthorServices authorServices;
-    private final SongServices songServices;
 
     @Autowired
-    public PlaylistController(AuthorServices authorServices, SongServices songServices) {
+    public PlaylistController(AuthorServices authorServices) {
         this.authorServices = authorServices;
-        this.songServices = songServices;
     }
 
     @GetMapping
@@ -40,10 +37,5 @@ public class PlaylistController {
         model.addAttribute("search", searchAuthor);
         model.addAttribute("authors", authorServices.findAllAuthor(searchAuthor.toUpperCase()));
         return "index";
-    }
-
-    @GetMapping("about")
-    public String aboutPage() {
-        return "about";
     }
 }
