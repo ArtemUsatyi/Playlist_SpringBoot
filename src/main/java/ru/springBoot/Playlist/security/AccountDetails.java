@@ -1,10 +1,12 @@
 package ru.springBoot.Playlist.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.springBoot.Playlist.models.Account;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class AccountDetails implements UserDetails {
     private final Account account;
@@ -15,7 +17,7 @@ public class AccountDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(account.getRole()));
     }
 
     @Override
