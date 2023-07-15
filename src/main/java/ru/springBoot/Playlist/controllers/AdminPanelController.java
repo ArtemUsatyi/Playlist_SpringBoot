@@ -2,6 +2,7 @@ package ru.springBoot.Playlist.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,7 @@ import java.util.UUID;
 
 @Component
 @RequestMapping("/adminPanel")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminPanelController {
 
     private final AuthorServices authorServices;
@@ -43,14 +45,14 @@ public class AdminPanelController {
         return "/adminPage/admin_panel";
     }
 
-    @GetMapping("search")
+    @GetMapping("/search")
     public String searchAuthor(@RequestParam("searchString") String searchAuthor, Model model) {
         model.addAttribute("search", searchAuthor);
         model.addAttribute("authors", authorServices.findAllAuthor(searchAuthor.toUpperCase()));
         return "/adminPage/admin_panel";
     }
 
-    @GetMapping("new")
+    @GetMapping("/new")
     public String newAuthor(@ModelAttribute("author") Author author) {
         return "/adminPage/new_author";
     }
