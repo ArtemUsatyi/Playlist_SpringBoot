@@ -21,6 +21,9 @@ public class Account {
     @Size(min = 3, max = 100, message = "Пароль может состоять от 3 букв")
     private String password;
 
+    @Column(name = "role")
+    private String role;
+
     public Account() {
     }
 
@@ -43,6 +46,14 @@ public class Account {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getPassword() {
