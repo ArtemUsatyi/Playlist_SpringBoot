@@ -32,7 +32,7 @@
                     <li class="menu-item"><a href="/index">Главная</a></li>
                     <li class="menu-item current-menu-item"><a href="/adminPanel">Редак & Добав</a></li>
                     <li class="menu-item"><a href="/auth/login">Войти</a></li>
-                    <li class="menu-item"><a href="/index/about">Правила</a></li>
+                    <li class="menu-item"><a th:href="@{/user}">Правила</a></li>
                 </ul>
                 <!-- End Navigation Menu -->
                 <div class="clear"></div>
@@ -102,11 +102,16 @@
     <div class="col-1-3">
         <div class="wrap-col">
             <div class="widget-container"><h6 class="widget-title">Админ панель</h6>
-                <ul>
-                    <li class="cat-item cat-item-5"><a href="/adminPanel">Назад</a></li>
-                    <li class="cat-item cat-item-5"><a href="/logout" title="View all posts filed under Apps">Выйти
-                        из админ панели</a></li>
-                </ul>
+                <form action="/adminPanel" role="search" id="searchform" class="searchform">
+                    <div>
+                        <input type="submit" id="searchsubmit" value="Назад"/>
+                    </div>
+                </form>
+                <form th:action="@{/logout}" th:method="POST" role="search" id="searchform" class="searchform">
+                    <div>
+                        <input type="submit" id="searchsubmit" value="Выйти из админ панели"/>
+                    </div>
+                </form>
                 <div class="clear"></div>
             </div>
 
@@ -123,7 +128,7 @@
     <div id="footer-container" class="col-full">
         <div class="wrap-col">
             <!-- Footer Copyright -->
-            <p>Copyrigh &copy; 2023 <a href="/index">HereOnlyRock.ru</a> Музыкальный сервис</p>
+            <p>Copyright &copy; 2023 <a href="/index">HereOnlyRock.ru</a> Музыкальный сервис</p>
             <!-- End Footer Copyright -->
             <!-- Footer Logo -->
             <img src="/images/footer-logo.png" id="footer-logo"/>
