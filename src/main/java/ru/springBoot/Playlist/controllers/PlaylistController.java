@@ -22,20 +22,26 @@ public class PlaylistController {
 
     @GetMapping
     public String homePage() {
-        return "index";
+        return "/index";
     }
 
     @GetMapping("{id}")
     public String oneAuthor(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorServices.findOneAuthor(id));
         model.addAttribute("songs", authorServices.getSongsByAuthorId(id));
-        return "index_play";
+        return "/index_play";
     }
 
     @GetMapping("/search")
     public String searchAuthor(@RequestParam("searchString") String searchAuthor, Model model) {
         model.addAttribute("search", searchAuthor);
         model.addAttribute("authors", authorServices.findAllAuthor(searchAuthor.toUpperCase()));
-        return "index";
+        return "/index";
+    }
+
+    @GetMapping("/all")
+    public String allAuthor(Model model){
+        model.addAttribute("authors", authorServices.findAll());
+        return "/index";
     }
 }

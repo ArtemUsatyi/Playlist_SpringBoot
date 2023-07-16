@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface SongRepository extends JpaRepository<Song, Integer> {
-
 }

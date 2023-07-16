@@ -17,6 +17,6 @@ public class UserController {
     }
     @GetMapping("403")
     public String page403(){
-        return "/403forbidden";
+        return "/userPage/403forbidden";
     }
 }
