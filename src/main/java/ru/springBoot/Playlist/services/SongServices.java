@@ -1,7 +1,6 @@
 package ru.springBoot.Playlist.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.springBoot.Playlist.models.Song;
@@ -18,7 +17,6 @@ public class SongServices {
     }
 
     public Song findOneSong(int id){
-        songRepository.findAll(Sort.by("name"));
         return songRepository.findById(id).orElse(null);
     }
     @Transactional

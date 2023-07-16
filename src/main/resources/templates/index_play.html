@@ -123,6 +123,11 @@
             </div>
             <div class="widget-container">
                 <h6 class="widget-title">Главное меню</h6>
+                <form th:action="@{/index/all}" method="GET" role="search" id="searchform" class="searchform">
+                    <div>
+                        <input type="submit" id="searchsubmit" value="Все рок группы"/>
+                    </div>
+                </form>
                 <form action="/adminPanel" method="get" role="search" id="searchform" class="searchform">
                     <div>
                         <input type="submit" id="searchsubmit" value="Админ панель"/>
