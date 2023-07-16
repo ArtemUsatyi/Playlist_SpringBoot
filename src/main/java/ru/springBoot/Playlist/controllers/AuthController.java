@@ -24,12 +24,12 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "auth/login";
+        return "/auth/login";
     }
 
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("account") Account account) {
-        return "auth/registration";
+        return "/auth/registration";
     }
 
     @PostMapping("/registration")
