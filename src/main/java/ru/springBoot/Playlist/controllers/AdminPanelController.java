@@ -12,6 +12,7 @@ import ru.springBoot.Playlist.models.Author;
 import ru.springBoot.Playlist.models.Song;
 import ru.springBoot.Playlist.services.AuthorServices;
 import ru.springBoot.Playlist.services.SongServices;
+import ru.springBoot.Playlist.util.AuthorValidator;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -28,6 +29,7 @@ public class AdminPanelController {
 
     private final AuthorServices authorServices;
     private final SongServices songServices;
+    private final AuthorValidator authorValidator;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -35,9 +37,10 @@ public class AdminPanelController {
     private final Path path = Paths.get("C:/Users/Artemo/Documents/Maven/Library/Playlist/uploadMusic");
 
     @Autowired
-    public AdminPanelController(AuthorServices authorServices, SongServices songServices) {
+    public AdminPanelController(AuthorServices authorServices, SongServices songServices, AuthorValidator authorValidator) {
         this.authorServices = authorServices;
         this.songServices = songServices;
+        this.authorValidator = authorValidator;
     }
 
     @GetMapping()
@@ -59,6 +62,7 @@ public class AdminPanelController {
 
     @PostMapping
     public String createAuthor(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult) {
+        authorValidator.validate(author, bindingResult);
         if (bindingResult.hasErrors()) return "/adminPage/new_author";
         author.setName(author.getName().toUpperCase());
         authorServices.save(author);
