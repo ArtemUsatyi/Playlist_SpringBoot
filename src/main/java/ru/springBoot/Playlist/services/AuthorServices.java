@@ -2,16 +2,20 @@ package ru.springBoot.Playlist.services;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.springBoot.Playlist.models.Author;
 import ru.springBoot.Playlist.models.Song;
 import ru.springBoot.Playlist.repositories.AuthorRepository;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.IntStream;
+
+import static java.lang.Math.min;
+import static java.util.stream.Collectors.toMap;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,8 +27,8 @@ public class AuthorServices {
         this.authorRepository = authorRepository;
     }
 
-    public List<Author> findAll(){
-        return authorRepository.findAll();
+    public Page<Author> findPagination(Integer page, Integer totalPage) {
+        return authorRepository.findAll(PageRequest.of(page - 1, totalPage, Sort.by("name")));
     }
 
     public List<Author> findAllAuthor(String searchAuthor) {
@@ -36,6 +40,24 @@ public class AuthorServices {
     public Author findOneAuthor(int id) {
         Optional<Author> author = authorRepository.findById(id);
         return author.orElse(null);
+    }
+
+    public Map<Integer, List<Song>> getMapSongsByAuthorId(int id) {
+        Optional<Author> author = authorRepository.findById(id);
+        if (author.isPresent()) {
+            Hibernate.initialize(author.get().getSongs());
+            List<Song> songs = author.get().getSongs();
+            songs.sort(Comparator.comparing(Song::getName));
+
+            int pageSize = 20;
+            Map<Integer, List<Song>> map = IntStream.iterate(0, i -> i + pageSize)
+                    .limit((songs.size() + pageSize - 1) / pageSize)
+                    .boxed()
+                    .collect(toMap(i -> (i / pageSize)+1,
+                            i -> songs.subList(i, min(i + pageSize, songs.size()))));
+
+            return map;
+        } else return Collections.emptyMap();
     }
 
     public List<Song> getSongsByAuthorId(int id) {
