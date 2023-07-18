@@ -108,8 +108,7 @@ padding-bottom:5%;
 /* Pagination */
 .pagination li{ float:left; margin-right:3px; text-transform:uppercase }
 .pagination li a{ background:#343434; color:#FFF; font-size:14px; padding:10px; padding-left:15px; padding-right:15px; font-weight:bold }
-.pagination li a:hover{ background:#2980b9; color:#FFFFFF }
-.pagination li.current a{ background:#2980b9; color:#FFFFFF }
+.pagination li a#myID{ background:#4CAF50; }
 
 /* PlayList */
 #playlist{
@@ -464,9 +463,9 @@ audio::-webkit-media-controls-seek-back-button{
 .logged-in-as a{ color:#2980b9; }
 
 /* Footer */
-#footer-container{ background:#343434; padding-top:20px; }
-#footer-container p{ color:#FFFFFF; font-size:14px; float:left; margin-left:15px; }
-#footer-logo{ float:right; margin-right:15px; }
+#footer-container{ background:#343434; padding-top:10px;}
+#footer-container p{ color:#FFFFFF; font-size:14px; float:left; margin-left:15px;}
+#footer-logo{ float:right; margin-right:15px;}
 
 /* Featured Carousel */
 .carousel-item .featured-image{ width:290px; height:130px; margin-bottom:5px; }
