@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org"/>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -66,17 +66,15 @@
                         <!-- Активировать если автор найден в поиске -->
                         <div th:if="${search}" class="text-playList">
                             <ul class="text-playList">
-                                <li>Результат поиска - </li>
+                                <li>Результат поиска -</li>
                                 <li th:text="${search}"></li>
                             </ul>
                         </div>
                         <!-- Список музыкантов -->
                         <ul id="playlist">
-                            <div th:each="author : ${authors}" class="text-playList">
-                                <li class="current-song">
-                                    <a th:href="@{/index/{id}(id=${author.getId()})}" th:text="${author.getName()}"></a>
-                                </li>
-                            </div>
+                            <li th:each="author : ${authors}" class="current-song">
+                                <a th:href="@{/index/{id}/1(id=${author.getId()})}" th:text="${author.getName()}"></a>
+                            </li>
                         </ul>
                     </div><!-- ./container -->
                 </div>
@@ -87,14 +85,14 @@
 
             <!-- Start Pagination -->
             <div class="spacing-20"></div>
-            <ul class="pagination">
-                <li class='current'><a href=''>1</a></li>
-                <li><a href=''>2</a></li>
-                <li><a href=''>3</a></li>
-                <li><a href=''>4</a></li>
-                <li><a href=''>НАЗАД</a></li>
-                <li><a href=''>СЛЕД</a></li>
-            </ul>
+            <div class="pagination" th:if="${totalPage > 1}">
+                <ul class="pagination">
+                    <li th:each="i:${#numbers.sequence(1,totalPage)}">
+                        <a th:if="${currentPage !=i}" th:href="@{'/index/all/'+${i}}">[[${i}]]</a>
+                        <a id="myID" th:unless="${currentPage !=i}" th:href="@{'/index/all/'+${i}}">[[${i}]]</a>
+                    </li>
+                </ul>
+            </div>
             <!-- End Pagination -->
 
             <div class="clear"></div>
@@ -117,7 +115,7 @@
             </div>
             <div class="widget-container">
                 <h6 class="widget-title">Главное меню</h6>
-                <form th:action="@{/index/all}" method="GET" role="search" id="searchform" class="searchform">
+                <form th:action="@{/index/all/1}" method="GET" role="search" id="searchform" class="searchform">
                     <div>
                         <input type="submit" id="searchsubmit" value="Все рок группы"/>
                     </div>
