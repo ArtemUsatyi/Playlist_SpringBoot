@@ -34,7 +34,7 @@ public class AdminPanelController {
     @Value("${upload.path}")
     private String uploadPath;
 
-    private final Path path = Paths.get("C:/Users/Artemo/Documents/Maven/Library/Playlist/uploadMusic");
+    private final Path path = Paths.get(uploadPath);
 
     @Autowired
     public AdminPanelController(AuthorServices authorServices, SongServices songServices, AuthorValidator authorValidator) {
