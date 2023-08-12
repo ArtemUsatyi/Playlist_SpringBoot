@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-@Component
+@Controller
 @RequestMapping("/adminPanel")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminPanelController {
@@ -34,7 +35,7 @@ public class AdminPanelController {
     @Value("${upload.path}")
     private String uploadPath;
 
-    private final Path path = Paths.get(uploadPath);
+    private Path path = Paths.get("${upload.path}");
 
     @Autowired
     public AdminPanelController(AuthorServices authorServices, SongServices songServices, AuthorValidator authorValidator) {
@@ -45,25 +46,25 @@ public class AdminPanelController {
 
     @GetMapping()
     public String adminPanel() {
-        return "/adminPage/admin_panel";
+        return "adminPage/admin_panel";
     }
 
     @GetMapping("/search")
     public String searchAuthor(@RequestParam("searchString") String searchAuthor, Model model) {
         model.addAttribute("search", searchAuthor);
         model.addAttribute("authors", authorServices.findAllAuthor(searchAuthor.toUpperCase()));
-        return "/adminPage/admin_panel";
+        return "adminPage/admin_panel";
     }
 
     @GetMapping("/new")
     public String newAuthor(@ModelAttribute("author") Author author) {
-        return "/adminPage/new_author";
+        return "adminPage/new_author";
     }
 
     @PostMapping
     public String createAuthor(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult) {
         authorValidator.validate(author, bindingResult);
-        if (bindingResult.hasErrors()) return "/adminPage/new_author";
+        if (bindingResult.hasErrors()) return "adminPage/new_author";
         author.setName(author.getName().toUpperCase());
         authorServices.save(author);
         return "redirect:/adminPanel";
@@ -72,19 +73,19 @@ public class AdminPanelController {
     @GetMapping("{id}/dataAuthor")
     public String dataAuthor(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorServices.findOneAuthor(id));
-        return "/adminPage/data_author";
+        return "adminPage/data_author";
     }
 
     @GetMapping("{id}/editAuthor")
     public String editAuthor(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorServices.findOneAuthor(id));
-        return "/adminPage/edit_author";
+        return "adminPage/edit_author";
     }
 
     @PatchMapping("{id}/patchAuthor")
     public String updateAuthor(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult,
                                @PathVariable("id") int id) {
-        if (bindingResult.hasErrors()) return "/adminPage/edit_author";
+        if (bindingResult.hasErrors()) return "adminPage/edit_author";
         author.setName(author.getName().toUpperCase());
         authorServices.update(id, author);
         return "redirect:/adminPanel/{id}/dataAuthor";
@@ -107,29 +108,29 @@ public class AdminPanelController {
     public String listSongs(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorServices.findOneAuthor(id));
         model.addAttribute("songs", authorServices.getSongsByAuthorId(id));
-        return "/adminPage/list_author_songs";
+        return "adminPage/list_author_songs";
     }
 
     @GetMapping("{id}/dataSong")
     public String dataSong(@PathVariable("id") int id, Model model) {
         model.addAttribute("song", songServices.findOneSong(id));
-        return "/adminPage/data_song";
+        return "adminPage/data_song";
     }
 
     @GetMapping("{id}/editSong")
     public String editSong(@PathVariable("id") int id, Model model) {
         model.addAttribute("song", songServices.findOneSong(id));
-        return "/adminPage/edit_song";
+        return "adminPage/edit_song";
     }
 
     @PatchMapping("{id}/patchSong")
     public String updateAuthor(@ModelAttribute("song") @Valid Song song, BindingResult bindingResult,
                                @PathVariable("id") int id, Model model, @RequestParam("file") MultipartFile file) {
         song.setAuthor(songServices.findOneSong(id).getAuthor());
-        if (bindingResult.hasErrors()) return "/adminPage/edit_song";
+        if (bindingResult.hasErrors()) return "adminPage/edit_song";
         if (file.getSize() > 30000000) {
             model.addAttribute("file", "Максимальный размер файла до 30Мб");
-            return "/adminPage/new_song";
+            return "adminPage/new_song";
         }
         if (!file.isEmpty()) {
             try {
@@ -150,17 +151,17 @@ public class AdminPanelController {
     public String newSong(@PathVariable("id") int id, @ModelAttribute("song") Song song, Model model) {
         song.setAuthor(authorServices.findOneAuthor(id));
         model.addAttribute("song", song);
-        return "/adminPage/new_song";
+        return "adminPage/new_song";
     }
 
     @PostMapping("{id}/newSong")
     public String createSong(@ModelAttribute("song") @Valid Song song, BindingResult bindingResult,
                              @PathVariable("id") int id, Model model, @RequestParam("file") MultipartFile file) {
         song.setAuthor(authorServices.findOneAuthor(id));
-        if (bindingResult.hasErrors()) return "/adminPage/new_song";
+        if (bindingResult.hasErrors()) return "adminPage/new_song";
         if (file.getSize() > 30000000) {
             model.addAttribute("file", "Максимальный размер файла до 30Мб");
-            return "/adminPage/new_song";
+            return "adminPage/new_song";
         }
         if (!file.isEmpty()) {
             File uploadDir = new File(uploadPath);
@@ -176,7 +177,7 @@ public class AdminPanelController {
         songServices.save(song);
         model.addAttribute("author", authorServices.findOneAuthor(id));
         model.addAttribute("songs", authorServices.getSongsByAuthorId(id));
-        return "/adminPage/list_author_songs";
+        return "adminPage/list_author_songs";
     }
 
     @DeleteMapping("{id}/deleteSong")
@@ -190,6 +191,6 @@ public class AdminPanelController {
         songServices.delete(id);
         model.addAttribute("author", author);
         model.addAttribute("songs", author.getSongs());
-        return "/adminPage/list_author_songs";
+        return "adminPage/list_author_songs";
     }
 }

@@ -24,7 +24,7 @@ public class AccountDetailsServices implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Account> account = accountRepository.findByUsername(username);
 
-        if (account.isEmpty()) throw new UsernameNotFoundException("User not found");
+        if (account.isEmpty()) throw new UsernameNotFoundException("Пользователь не найден");
 
         return new AccountDetails(account.get());
     }
