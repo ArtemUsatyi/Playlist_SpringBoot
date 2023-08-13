@@ -1,9 +1,7 @@
 package ru.springBoot.Playlist.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+
 @Controller
 @RequestMapping("/adminPanel")
 @PreAuthorize("hasRole('ADMIN')")
@@ -32,10 +31,8 @@ public class AdminPanelController {
     private final SongServices songServices;
     private final AuthorValidator authorValidator;
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
-    private Path path = Paths.get("${upload.path}");
+    private String uploadPath = "/home/artem/uploadMusic";
+    private Path path = Paths.get(uploadPath);
 
     @Autowired
     public AdminPanelController(AuthorServices authorServices, SongServices songServices, AuthorValidator authorValidator) {
@@ -168,8 +165,10 @@ public class AdminPanelController {
             if (!uploadDir.exists()) uploadDir.mkdir();
             UUID uuid = UUID.randomUUID();
             song.setLink(uuid + "_" + file.getOriginalFilename());
+            File newFile = new File(uploadPath + "/" + song.getLink());
             try {
-                file.transferTo(new File(uploadPath + "/" + song.getLink()));
+                file.transferTo(newFile);
+                newFile.createNewFile();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
