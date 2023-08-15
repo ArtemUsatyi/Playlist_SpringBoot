@@ -14,7 +14,7 @@ public class SongDTO {
     private String link;
     @Column(name = "year_song")
     @Max(value = 2024, message = "год написания песни не должен быть больше 2024 года")
-    @Min(value = 900, message = "год написания песни не должен быть не меньше 900 года")
+    @Min(value = 901, message = "год написания песни не должен быть не меньше 900 года")
     private int yearSong;
 
     public SongDTO() {
