@@ -1,12 +1,11 @@
 package ru.springBoot.Playlist.models;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
-import java.util.ArrayList;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @Entity
@@ -21,6 +20,7 @@ public class Author {
     private String name;
     @Column(name = "age")
     @Max(value = 2023, message = "год создание группы не должен быть больше 2024 года")
+    @Min(value = 1, message = "год группы больше 0")
     private int age;
     @Column(name = "email")
     @Email(message = "введенный email не валидный")
