@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import ru.springBoot.Playlist.dto.AuthorDTO;
 import ru.springBoot.Playlist.models.Author;
 import ru.springBoot.Playlist.repositories.AuthorRepository;
 
@@ -23,8 +24,8 @@ public class AuthorValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        Author author = (Author) target;
-        if (authorRepository.findByName(author.getName()).isPresent())
+        AuthorDTO authorDTO = (AuthorDTO) target;
+        if (authorRepository.findByName(authorDTO.getName()).isPresent())
             errors.rejectValue("name", "", "Группа с таким названием существует, введите другое название");
     }
 }
