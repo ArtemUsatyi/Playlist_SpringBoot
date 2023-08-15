@@ -70,8 +70,8 @@
                     <div class="container">
 
                         <div class="widget-container">
-                            <form th:action="@{/adminPanel/{id}/newSong(id=${song.getAuthor().getId()})}"
-                                  th:method="POST" th:object="${song}" class="editAdd" enctype="multipart/form-data">
+                            <form th:action="@{/adminPanel/{id}/newSong(id=${author.getId()})}"
+                                  th:method="POST" th:object="${songDTO}" class="editAdd" enctype="multipart/form-data">
                                 <label class="screen-reader-text">Название новой песни:</label>
                                 </br>
                                 <input type="text" th:field="*{name}" required
@@ -117,7 +117,7 @@
     <div class="col-1-3">
         <div class="wrap-col">
             <div class="widget-container"><h6 class="widget-title">Админ панель</h6>
-                <form th:action="@{/adminPanel/{id}/listSongs(id=${song.getId()})}" role="search" id="searchform"
+                <form th:action="@{/adminPanel/{id}/listSongs(id=${author.getId()})}" role="search" id="searchform"
                       class="searchform">
                     <div>
                         <input type="submit" id="searchsubmit" value="Назад"/>

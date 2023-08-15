@@ -62,7 +62,7 @@
                 <div class="post-margin-playlist">
                     <div class="container">
                         <div class="widget-container">
-                            <form th:action="@{/adminPanel}" th:method="POST" class="editAdd" th:object="${author}">
+                            <form th:action="@{/adminPanel}" th:method="POST" class="editAdd" th:object="${authorDTO}">
                                 <label class="screen-reader-text">Введите название автора:</label>
                                 </br>
                                 <input type="text" th:field="*{name}" required placeholder="Введите название новой группы"
