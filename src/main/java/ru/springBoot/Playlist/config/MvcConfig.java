@@ -9,9 +9,9 @@ public class MvcConfig implements WebMvcConfigurer {
     @Value("${upload.path}")
     private String uploadPath;
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/uploadMusic/**")
-                .addResourceLocations("file:/" + uploadPath + "/");
-    }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/uploadMusic/**")
+//                .addResourceLocations("file:/" + uploadPath + "/");
+//    }
 }
