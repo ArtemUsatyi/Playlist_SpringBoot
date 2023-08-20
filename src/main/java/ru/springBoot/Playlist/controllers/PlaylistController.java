@@ -24,7 +24,8 @@ public class PlaylistController {
     }
 
     @GetMapping
-    public String homePage() {
+    public String homePage(Model model) {
+        model.addAttribute("info", "true");
         return "indexMain";
     }
 
@@ -50,6 +51,7 @@ public class PlaylistController {
     public String allAuthor(@PathVariable("pageId") int pageId, Model model) {
         int pageSize = 30;
         Page<Author> page = authorServices.findPagination(pageId, pageSize);
+        model.addAttribute("search", "true");
         model.addAttribute("currentPage", pageId);
         model.addAttribute("totalPage", page.getTotalPages());
         model.addAttribute("authors", page.getContent());
