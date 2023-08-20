@@ -51,7 +51,7 @@ public class PlaylistController {
     public String allAuthor(@PathVariable("pageId") int pageId, Model model) {
         int pageSize = 30;
         Page<Author> page = authorServices.findPagination(pageId, pageSize);
-        model.addAttribute("search", "true");
+        model.addAttribute("search", "Все группы");
         model.addAttribute("currentPage", pageId);
         model.addAttribute("totalPage", page.getTotalPages());
         model.addAttribute("authors", page.getContent());
