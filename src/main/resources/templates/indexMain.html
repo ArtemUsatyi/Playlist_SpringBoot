@@ -58,24 +58,47 @@
             <!-- Start Post Item -->
             <div class="post">
                 <div class="post-margin-play">
-                    <h5 class="page-title">Поиск исполнителя</h5>
+                    <div th:if="${info}" class="text-playList">
+                        <h5 class="page-title">Главная страница</h5>
+                    </div>
+                    <div th:if="${search}">
+                        <h5 class="page-title">Поиск исполнителя</h5>
+                    </div>
                 </div>
 
                 <div class="post-margin-playlist">
                     <div class="container">
-                        <!-- Активировать если автор найден в поиске -->
-                        <div th:if="${search}" class="text-playList">
-                            <ul class="text-playList">
-                                <li>Результат поиска -</li>
-                                <li th:text="${search}"></li>
-                            </ul>
+                        <div th:if="${info}" class="text-playList">
+                            <p>Музыкальный плеер - "ЗДЕСЬ ТОЛЬКО РОК".
+                                Собрана лучшая бесплатная музыка РОКА. Музыкальный плеер "ЗДЕСЬ ТОЛЬКО РОК" постоянно
+                                пополняется новыми автора рока и новыми песнями исполнителей.</br>
+                                Используйте "ПОИСК"<img src="/images/searchJPEG.jpg" id="myimagesearch"/> для поиска
+                                исполнителя. </br>
+                                Или нажмите "ВСЕ РОК ГРУППЫ" <img src="/images/allRock.jpg" id="myallRock"/> для
+                                отображения всех исполнителей на сайте.
+                            </p>
                         </div>
-                        <!-- Список музыкантов -->
-                        <ul id="playlist">
-                            <li th:each="author : ${authors}" class="current-song">
-                                <a th:href="@{/index/{id}/1(id=${author.getId()})}" th:text="${author.getName()}"></a>
-                            </li>
-                        </ul>
+                        <div th:if="${search}">
+                            <div th:if="${#lists.isEmpty(authors)}">
+                                <ul class="text-playList">
+                                    <li>Результат поиска -</li>
+                                    <li th:text="${search}"></li>
+                                </ul>
+                                <p>Исполнитель не найден. Попробуйте ввести другой запрос.</p>
+                            </div>
+                            <div th:if="${not #lists.isEmpty(authors)}">
+                                <ul class="text-playList">
+                                    <li>Результат поиска -</li>
+                                    <li th:text="${search}"></li>
+                                </ul>
+                                <ul id="playlist">
+                                    <li th:each="author : ${authors}" class="current-song">
+                                        <a th:href="@{/index/{id}/1(id=${author.getId()})}"
+                                           th:text="${author.getName()}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div><!-- ./container -->
                 </div>
 

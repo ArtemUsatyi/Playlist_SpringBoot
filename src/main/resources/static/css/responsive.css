@@ -15,9 +15,16 @@ html {
 img{
 	max-width:100%;
 	height: auto;
-   	width: auto\9; /* ie8 */
+}
+#myimagesearch{
+	max-width:100%;
+	height: 30px;
 }
 
+#myallRock{
+	max-width:100%;
+	height: 30px;
+}
 /*------------------------*/
 
 @media only screen and (max-width: 959px) {
