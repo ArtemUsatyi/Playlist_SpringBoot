@@ -62,21 +62,28 @@
                 <div class="post-margin-playlist">
                     <div class="container">
                         <!-- Активировать если автор найден в поиске -->
-                        <div th:if="${search}" class="text-playList">
-                            <ul class="text-playList">
-                                <li>Результат поиска -</li>
-                                <li th:text="${search}"></li>
-                            </ul>
-                        </div>
-                        <!-- Список музыкантов -->
-                        <ul id="playlist">
-                            <div th:each="author : ${authors}" class="text-playList">
-                                <li class="current-song">
-                                    <a th:href="@{/adminPanel/{id}/dataAuthor(id=${author.getId()})}"
-                                       th:text="${author.getName()}"></a>
-                                </li>
+                        <div th:if="${search}">
+                            <div th:if="${#lists.isEmpty(authors)}">
+                                <ul class="text-playList">
+                                    <li>Результат поиска -</li>
+                                    <li th:text="${search}"></li>
+                                </ul>
+                                <p>Исполнитель не найден. Попробуйте ввести другой запрос.</p>
                             </div>
-                        </ul>
+                            <div th:if="${not #lists.isEmpty(authors)}">
+                                <ul class="text-playList">
+                                    <li>Результат поиска -</li>
+                                    <li th:text="${search}"></li>
+                                </ul>
+                                <!-- Список музыкантов -->
+                                <ul id="playlist">
+                                    <li th:each="author : ${authors}" class="current-song">
+                                        <a th:href="@{/index/{id}/1(id=${author.getId()})}"
+                                           th:text="${author.getName()}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div><!-- ./container -->
                 </div>
                 <div class="post-margin-playlist">
