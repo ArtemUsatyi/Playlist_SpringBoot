@@ -11,6 +11,9 @@
 * Spring Boot
 * JPA Hibernate
 * Thymeleaf
+ 
+
+    В данном проекте использовалась БД на основе PostgreSQL
 
 ### Главная страница плейлиста
 
