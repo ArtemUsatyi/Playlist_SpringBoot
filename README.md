@@ -14,4 +14,4 @@
 
 ### Главная страница плейлиста
 
-![main](C:\Users\Artemo\Documents\Maven\Library\Playlist\src\main\resources\projectImage\index.jpg)
+![main](src\main\resources\projectImage\index.jpg)
