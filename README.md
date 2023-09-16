@@ -14,4 +14,4 @@
 
 ### Главная страница плейлиста
 
-![main](projectImage/index.jpg)
+![main](src/main/resources/projectImage/index.jpg)
