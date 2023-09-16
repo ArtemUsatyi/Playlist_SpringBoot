@@ -14,4 +14,27 @@
 
 ### Главная страница плейлиста
 
-![main](src/main/resources/projectImage/index.jpg)
+![main](src/main/resources/projectImage/main.jpg)
+
+### Панель проигрывателя
+![play](src/main/resources/projectImage/play.jpg)
+
+### Панель Администрирования
+* Добавление нового испонителя
+
+![add](src/main/resources/projectImage/addAdmin.jpg)
+
+* Поиск и выбор испонителя для редактирования
+
+![edit](src/main/resources/projectImage/editAdmin.jpg)
+
+* Информация об исполнителе
+
+![info](src/main/resources/projectImage/infoAdmin.jpg)
+
+* Список песен исполнителя
+
+![list](src/main/resources/projectImage/listAdmin.jpg)
+
+### Правила пользования
+![user](src/main/resources/projectImage/user.jpg)
