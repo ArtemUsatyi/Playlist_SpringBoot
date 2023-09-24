@@ -78,7 +78,7 @@
                                 <!-- Список музыкантов -->
                                 <ul id="playlist">
                                     <li th:each="author : ${authors}" class="current-song">
-                                        <a th:href="@{/index/{id}/1(id=${author.getId()})}"
+                                        <a th:href="@{/adminPanel/{id}/dataAuthor(id=${author.getId()})}"
                                            th:text="${author.getName()}"></a>
                                     </li>
                                 </ul>
